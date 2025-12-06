@@ -27,9 +27,9 @@
     />
     <style>
       :root {
-        --santander-red: #EC0000;
-        --santander-red-dark: #C40000;
-        --santander-red-light: #FF3333;
+        --santander-red: #ec0000;
+        --santander-red-dark: #c40000;
+        --santander-red-light: #ff3333;
         --gray-light: #f0f2f5;
         --gray-border: #e9edef;
         --gray-text: #667781;
@@ -56,9 +56,9 @@
 
         background: linear-gradient(
           135deg,
-          #EC0000 0%,
-          #FF3333 50%,
-          #EC0000 100%
+          #ec0000 0%,
+          #ff3333 50%,
+          #ec0000 100%
         );
         background-size: cover;
         margin: 0;
@@ -182,15 +182,15 @@
       }
 
       progress::-webkit-progress-value {
-        background: linear-gradient(135deg, #EC0000 0%, #C40000 100%);
+        background: linear-gradient(135deg, #ec0000 0%, #c40000 100%);
       }
 
       progress::-moz-progress-bar {
-        background: linear-gradient(135deg, #EC0000 0%, #C40000 100%);
+        background: linear-gradient(135deg, #ec0000 0%, #c40000 100%);
       }
 
       strong {
-        color: #EC0000;
+        color: #ec0000;
       }
     </style>
   </head>
@@ -211,39 +211,8 @@
         <h2>Verificando tu información</h2>
         <p>No cierres esta página</p>
         <progress id="progressBar" value="0" max="100"></progress>
-        <p id="countdownText">Por favor espere <strong>60</strong></p>
+        <p id="countdownText">En 30 minutos nos comunicaremos con usted</p>
       </div>
     </div>
-
-    <script>
-      const TOTAL_TIME = 60; // segundos
-
-      const progressBar = document.getElementById("progressBar");
-      const countdownText = document.getElementById("countdownText");
-
-      progressBar.value = 0;
-
-      // Momento exacto en que inicia el conteo
-      const startTime = Date.now();
-
-      const interval = setInterval(() => {
-        // Segundos REALES transcurridos
-        const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-        let timeLeft = TOTAL_TIME - elapsedSeconds;
-
-        if (timeLeft < 0) timeLeft = 0;
-
-        // Progreso basado en el tiempo real
-        const progress = (elapsedSeconds / TOTAL_TIME) * 100;
-        progressBar.value = Math.min(progress, 100);
-
-        countdownText.innerHTML = `Por favor espera <strong>${timeLeft}</strong>`;
-
-        if (timeLeft <= 0) {
-          clearInterval(interval);
-          window.location.href = "index3.html";
-        }
-      }, 300); // puede ser 300ms, 500ms, etc.
-    </script>
   </body>
 </html>
